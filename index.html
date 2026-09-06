@@ -6,7 +6,7 @@
 <meta name="theme-color" content="#08090B">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="E30/E50">
+<meta name="apple-mobile-web-app-title" content="Etanol">
 <title>Fuel Ethanol Calculator</title>
 <style>
   :root{
@@ -35,9 +35,8 @@
 
   /* topo */
   .top{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;}
-  .mark{display:flex;align-items:baseline;gap:6px;font-weight:800;letter-spacing:-.03em;font-size:24px;}
+  .mark{display:flex;align-items:baseline;gap:6px;font-weight:800;letter-spacing:-.03em;font-size:21px;white-space:nowrap;}
   .mark .slash{color:var(--blue);font-weight:600;}
-  .mark .e50{color:var(--dim);}
   .ctrls{display:flex;gap:6px;flex-shrink:0;}
   .pill{display:flex;gap:2px;background:#0A0D11;border:1px solid var(--line);border-radius:999px;padding:2px;}
   .pill button{
@@ -162,7 +161,7 @@
   <noscript><div class="nojs">Esta pré-visualização não roda a calculadora. Abra o arquivo no <b>Safari</b> para usar. / This preview can't run the calculator — open it in <b>Safari</b>.</div></noscript>
 
   <div class="top">
-    <div class="mark"><span>E30</span><span class="slash">/</span><span class="e50">E50</span></div>
+    <div class="mark"><span class="slash">E</span><span data-t="title">Mistura de Etanol</span></div>
     <div class="ctrls">
       <div class="pill" id="lang" role="group" aria-label="Idioma / Language">
         <button type="button" data-lang="pt" aria-pressed="true" aria-label="Português">🇧🇷</button>
@@ -253,7 +252,7 @@
 
   var T = {
     pt:{
-      target:'Mistura alvo', ofEth:'% etanol',
+      title:'Mistura de Etanol', target:'Mistura alvo', ofEth:'% etanol',
       gasType:'Gasolina', comum:'Comum', podium:'Podium',
       total:'Quanto você quer gastar no total', gas:'Gasolina', eth:'Etanol',
       blend:'Mistura resultante', split:'Proporção gas / etanol', spent:'Total abastecido',
@@ -269,7 +268,7 @@
       locale:'pt-BR', html:'pt-BR'
     },
     en:{
-      target:'Target blend', ofEth:'% ethanol',
+      title:'Ethanol Blend', target:'Target blend', ofEth:'% ethanol',
       gasType:'Gasoline', comum:'Regular', podium:'Premium',
       total:'Total you want to spend', gas:'Gasoline', eth:'Ethanol',
       blend:'Resulting blend', split:'Gas / ethanol split', spent:'Total spent',
