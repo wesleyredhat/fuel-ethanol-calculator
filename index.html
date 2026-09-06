@@ -30,7 +30,7 @@
   }
   body{display:flex;flex-direction:column;}
   .wrap{max-width:520px;width:100%;margin:0 auto;display:flex;flex-direction:column;flex:1;}
-  .foot{margin-top:auto;padding-top:8px;color:#5D6674;font-size:11.5px;line-height:1.35;}
+  .foot{margin-top:auto;padding-top:6px;color:#5D6674;font-size:11.5px;line-height:1.35;}
   .foot-row{display:flex;justify-content:space-between;align-items:baseline;gap:10px;padding-top:7px;border-top:1px solid var(--line);}
   .foot-brand{color:var(--dim);font-weight:700;letter-spacing:.01em;white-space:nowrap;}
   .foot-brand .slash{color:var(--blue);}
@@ -57,17 +57,24 @@
   /* painel */
   .panel{
     background:linear-gradient(180deg,var(--panel),#0D1015);
-    border:1px solid var(--line);border-radius:14px;padding:12px;margin-bottom:10px;
+    border:1px solid var(--line);border-radius:14px;padding:10px;margin-bottom:8px;
   }
 
+  /* cabeçalhos de seção */
+  .sec{display:flex;align-items:center;gap:7px;margin-bottom:6px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);}
+  .sec-n{width:16px;height:16px;border-radius:50%;background:var(--blue);color:#02121C;font-size:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .sec .hint{margin-left:auto;text-transform:none;letter-spacing:0;font-weight:500;font-size:11px;color:#5D6674;text-align:right;}
+  .res{border-color:rgba(14,165,255,.28);background:linear-gradient(180deg,#0F1620,#0C1016);}
+  .res .sec-n{background:var(--eth);}
+
   /* barra de mistura alvo */
-  .target{background:#0A0D11;border:1px solid var(--line);border-radius:10px;padding:7px 12px 3px;}
+  .target{background:#0A0D11;border:1px solid var(--line);border-radius:10px;padding:5px 12px 2px;}
   .thead{display:flex;justify-content:space-between;align-items:baseline;}
   .thead .lab{font-size:12.5px;color:var(--dim);}
   .thead .tval b{font-size:22px;font-weight:800;letter-spacing:-.02em;color:var(--blue);font-variant-numeric:tabular-nums;}
   .thead .tval span{font-size:11.5px;color:var(--dim);margin-left:6px;}
   input[type=range]{
-    -webkit-appearance:none;appearance:none;display:block;width:100%;height:30px;margin:0;padding:0;
+    -webkit-appearance:none;appearance:none;display:block;width:100%;height:26px;margin:0;padding:0;
     background:transparent;outline:none;--p:15.4%;
   }
   input[type=range]::-webkit-slider-runnable-track{height:6px;border-radius:3px;background:linear-gradient(90deg,var(--blue) var(--p),#242C36 var(--p));}
@@ -88,7 +95,7 @@
   .ticks button.on::before{background:var(--blue);}
 
   /* chips de gasolina */
-  .gasrow{display:grid;grid-template-columns:auto 1fr 1fr;gap:8px;align-items:center;margin-top:8px;}
+  .gasrow{display:grid;grid-template-columns:auto 1fr 1fr;gap:8px;align-items:center;margin-top:6px;}
   .gasrow .lab{font-size:12.5px;color:var(--dim);padding-right:2px;}
   .chips{display:contents;}
   .chips button{
@@ -103,8 +110,8 @@
   .chips button[aria-pressed="true"]::before{content:"";width:5px;height:9px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg) translateY(-1px);margin-right:2px;}
 
   /* campos */
-  .field{margin-top:8px;min-width:0;}
-  .field label{display:block;font-size:12px;color:var(--dim);margin-bottom:4px;}
+  .field{margin-top:6px;min-width:0;}
+  .box .lbl{font-size:12px;color:var(--dim);white-space:nowrap;margin-right:2px;}
   .box{
     display:flex;align-items:center;gap:6px;min-width:0;
     background:#0A0D11;border:1px solid var(--line);border-radius:10px;padding:0 11px;
@@ -115,34 +122,34 @@
   .box .suf{color:var(--dim);font-size:12px;white-space:nowrap;}
   input{
     flex:1;min-width:0;width:100%;background:none;border:0;outline:none;color:var(--txt);
-    font:inherit;font-size:17px;font-weight:600;font-variant-numeric:tabular-nums;padding:9px 0;
+    font:inherit;font-size:17px;font-weight:600;font-variant-numeric:tabular-nums;padding:8px 0;
   }
   input::placeholder{color:#39424E;font-weight:500;opacity:1;}
   input::-webkit-input-placeholder{color:#39424E;font-weight:500;opacity:1;}
-  .pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:8px;}
+  .pair{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:6px;}
 
   .err{color:var(--danger);font-size:12.5px;margin:8px 0 0;display:none;}
   .err.on{display:block;}
 
   /* resultados */
   #out[hidden]{display:none;}
-  .pumps{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .pumps{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
   .pump{
-    background:linear-gradient(180deg,var(--raise),#0D1015);
-    border:1px solid var(--line);border-left:3px solid var(--c);border-radius:12px;padding:8px 12px;
+    background:#0A0D11;
+    border:1px solid var(--line);border-left:3px solid var(--c);border-radius:12px;padding:6px 12px;
     display:flex;flex-direction:column;
   }
   .pump.g{--c:var(--gas);} .pump.e{--c:var(--eth);}
   .pump .name{font-size:12px;color:var(--c);font-weight:700;}
-  .pump .val{font-size:26px;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums;line-height:1.1;margin-top:2px;}
+  .pump .val{font-size:24px;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums;line-height:1.1;margin-top:2px;}
   .pump .val{display:flex;align-items:baseline;gap:2px;border-bottom:1px dashed #2E3844;margin-bottom:-1px;}
   .pump .val small{font-size:13px;font-weight:600;color:var(--dim);}
-  .pump .val input{font-size:26px;font-weight:800;letter-spacing:-.03em;padding:0;line-height:1.1;color:var(--txt);}
+  .pump .val input{font-size:24px;font-weight:800;letter-spacing:-.03em;padding:0;line-height:1.1;color:var(--txt);}
   .pump:focus-within .val{border-bottom-color:var(--c);}
   .pump .lit{font-size:13px;color:var(--dim);font-variant-numeric:tabular-nums;}
 
   .blend{
-    display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:8px;padding:6px 12px;border-radius:10px;
+    display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:6px;padding:5px 12px;border-radius:10px;
     background:linear-gradient(90deg, rgba(61,220,132,.10), rgba(61,220,132,0));border:1px solid rgba(61,220,132,.35);
   }
   .blend.off{background:linear-gradient(90deg, rgba(255,176,32,.10), rgba(255,176,32,0));border-color:rgba(255,176,32,.4);}
@@ -152,7 +159,7 @@
   .blend .note{font-size:11.5px;color:var(--dim);text-align:right;max-width:58%;line-height:1.25;}
 
   .stats{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px;}
-  .stat{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:7px 10px;min-width:0;}
+  .stat{background:#0A0D11;border:1px solid var(--line);border-radius:10px;padding:6px 10px;min-width:0;}
   .stat .k{font-size:11.5px;color:var(--dim);}
   .stat .v{font-size:15px;font-weight:700;font-variant-numeric:tabular-nums;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 
@@ -180,6 +187,7 @@
   </div>
 
   <section class="panel">
+    <div class="sec"><span class="sec-n">1</span><span data-t="sec1">Planejamento</span><span class="hint" data-t="hint1">alvo, gasolina e preços</span></div>
     <div class="target">
       <div class="thead">
         <span class="lab" data-t="target">Mistura alvo</span>
@@ -198,22 +206,19 @@
     </div>
 
     <div class="field">
-      <label for="total" data-t="total">Quanto você quer gastar no total</label>
-      <div class="box"><span class="cur" data-sym>R$</span>
+      <div class="box"><label class="lbl" for="total" data-t="total">Total</label><span class="cur" data-sym>R$</span>
         <input id="total" type="text" inputmode="decimal" autocomplete="off" enterkeyhint="done" value="100">
       </div>
     </div>
 
     <div class="pair">
       <div class="field">
-        <label for="pg" data-t="gas">Gasolina</label>
-        <div class="box"><span class="cur" data-sym>R$</span>
+        <div class="box"><label class="lbl" for="pg" data-t="gas">Gasolina</label><span class="cur" data-sym>R$</span>
           <input id="pg" type="text" inputmode="decimal" autocomplete="off" enterkeyhint="done" value="6,19"><span class="suf">/L</span>
         </div>
       </div>
       <div class="field">
-        <label for="pe" data-t="eth">Etanol</label>
-        <div class="box"><span class="cur" data-sym>R$</span>
+        <div class="box"><label class="lbl" for="pe" data-t="eth">Etanol</label><span class="cur" data-sym>R$</span>
           <input id="pe" type="text" inputmode="decimal" autocomplete="off" enterkeyhint="done" value="3,90"><span class="suf">/L</span>
         </div>
       </div>
@@ -222,7 +227,8 @@
     <p class="err" id="err"></p>
   </section>
 
-  <section id="out" aria-live="polite">
+  <section id="out" class="panel res" aria-live="polite">
+    <div class="sec"><span class="sec-n">2</span><span data-t="sec2">Na bomba</span><span class="hint" data-t="hint2">toque nos valores para ajustar</span></div>
     <div class="pumps">
       <div class="pump g"><div class="name" data-t="gas">Gasolina</div>
         <label class="val"><small data-sym>R$</small><input id="vg" type="text" inputmode="decimal" autocomplete="off" enterkeyhint="done" value="80"></label>
@@ -270,9 +276,10 @@
   var T = {
     pt:{
       title:'Mistura de Etanol', target:'Mistura alvo', ofEth:'% etanol',
+      sec1:'Planejamento', hint1:'alvo, gasolina e preços', sec2:'Na bomba', hint2:'toque nos valores para ajustar',
       footNote:'Gasolina comum E32 · Podium E25 · valores em múltiplos de R$ 5',
       gasType:'Gasolina', comum:'Comum', podium:'Podium',
-      total:'Quanto você quer gastar no total', gas:'Gasolina', eth:'Etanol',
+      total:'Total a gastar', gas:'Gasolina', eth:'Etanol',
       blend:'Mistura resultante', split:'Proporção gas / etanol', spent:'Total abastecido',
       vol:'Volume total', avg:'Custo médio',
       inTarget:'Dentro do alvo E{t}',
@@ -287,9 +294,10 @@
     },
     en:{
       title:'Ethanol Blend', target:'Target blend', ofEth:'% ethanol',
+      sec1:'Setup', hint1:'target, gasoline and prices', sec2:'At the pump', hint2:'tap the amounts to adjust',
       footNote:'Regular gasoline E32 · Podium E25 · amounts rounded to R$ 5',
       gasType:'Gasoline', comum:'Regular', podium:'Premium',
-      total:'Total you want to spend', gas:'Gasoline', eth:'Ethanol',
+      total:'Total to spend', gas:'Gasoline', eth:'Ethanol',
       blend:'Resulting blend', split:'Gas / ethanol split', spent:'Total spent',
       vol:'Total volume', avg:'Average cost',
       inTarget:'On target E{t}',
