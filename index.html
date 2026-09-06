@@ -180,10 +180,10 @@
     <div class="target">
       <div class="thead">
         <span class="lab" data-t="target">Mistura alvo</span>
-        <span class="tval"><b id="tval">E30</b><span id="tsub">30% etanol</span></span>
+        <span class="tval"><b id="tval">E50</b><span id="tsub">50% etanol</span></span>
       </div>
-      <input type="range" id="mixr" min="30" max="85" step="1" value="30" aria-label="E%" style="--p:0%">
-      <div class="ticks" id="ticks"><button type="button" data-v="30" class="on" style="left:calc(13px + (100% - 26px) * 0.0000)">E30</button><button type="button" data-v="40" style="left:calc(13px + (100% - 26px) * 0.1818)">E40</button><button type="button" data-v="50" style="left:calc(13px + (100% - 26px) * 0.3636)">E50</button><button type="button" data-v="60" style="left:calc(13px + (100% - 26px) * 0.5455)">E60</button><button type="button" data-v="70" style="left:calc(13px + (100% - 26px) * 0.7273)">E70</button><button type="button" data-v="85" style="left:calc(13px + (100% - 26px) * 1.0000)">E85</button></div>
+      <input type="range" id="mixr" min="30" max="85" step="1" value="50" aria-label="E%" style="--p:36.3636%">
+      <div class="ticks" id="ticks"><button type="button" data-v="30" style="left:calc(13px + (100% - 26px) * 0.0000)">E30</button><button type="button" data-v="40" style="left:calc(13px + (100% - 26px) * 0.1818)">E40</button><button type="button" data-v="50" class="on" style="left:calc(13px + (100% - 26px) * 0.3636)">E50</button><button type="button" data-v="60" style="left:calc(13px + (100% - 26px) * 0.5455)">E60</button><button type="button" data-v="70" style="left:calc(13px + (100% - 26px) * 0.7273)">E70</button><button type="button" data-v="85" style="left:calc(13px + (100% - 26px) * 1.0000)">E85</button></div>
     </div>
 
     <div class="gasrow">
@@ -222,21 +222,21 @@
   <section id="out" aria-live="polite">
     <div class="pumps">
       <div class="pump g"><div class="name" data-t="gas">Gasolina</div>
-        <label class="val"><small data-sym>R$</small><input id="vg" type="text" inputmode="decimal" autocomplete="off" enterkeyhint="done" value="100"></label>
-        <div class="lit" id="lg">16,16 L</div></div>
+        <label class="val"><small data-sym>R$</small><input id="vg" type="text" inputmode="decimal" autocomplete="off" enterkeyhint="done" value="80"></label>
+        <div class="lit" id="lg">12,92 L</div></div>
       <div class="pump e"><div class="name" data-t="eth">Etanol</div>
-        <label class="val"><small data-sym>R$</small><input id="ve" type="text" inputmode="decimal" autocomplete="off" enterkeyhint="done" value="0"></label>
-        <div class="lit" id="le">0,00 L</div></div>
+        <label class="val"><small data-sym>R$</small><input id="ve" type="text" inputmode="decimal" autocomplete="off" enterkeyhint="done" value="20"></label>
+        <div class="lit" id="le">5,13 L</div></div>
     </div>
-    <div class="blend off" id="blend">
-      <div><div class="lab" data-t="blend">Mistura resultante</div><div class="num" id="bnum">E32,0</div></div>
-      <div class="note" id="bnote">A gasolina comum já tem 32% de etanol, acima do alvo E30. Não precisa de etanol.</div>
+    <div class="blend" id="blend">
+      <div><div class="lab" data-t="blend">Mistura resultante</div><div class="num" id="bnum">E51,3</div></div>
+      <div class="note" id="bnote">Dentro do alvo E50</div>
     </div>
     <div class="stats">
-      <div class="stat"><div class="k" data-t="split">Proporção gas / etanol</div><div class="v" id="rprop">100,0% / 0,0%</div></div>
+      <div class="stat"><div class="k" data-t="split">Proporção gas / etanol</div><div class="v" id="rprop">71,6% / 28,4%</div></div>
       <div class="stat"><div class="k" data-t="spent">Total abastecido</div><div class="v" id="rtotal">R$ 100</div></div>
-      <div class="stat"><div class="k" data-t="vol">Volume total</div><div class="v" id="rvol">16,16 L</div></div>
-      <div class="stat"><div class="k" data-t="avg">Custo médio</div><div class="v" id="rmed">R$ 6,19/L</div></div>
+      <div class="stat"><div class="k" data-t="vol">Volume total</div><div class="v" id="rvol">18,05 L</div></div>
+      <div class="stat"><div class="k" data-t="avg">Custo médio</div><div class="v" id="rmed">R$ 5,54/L</div></div>
     </div>
   </section>
 
@@ -249,7 +249,7 @@
   // Gasolina da bomba: % de etanol anidro. Comum = E32 (desde ago/2026); Podium/premium = 25%.
   var GAS = { comum:{pct:32}, podium:{pct:25} };
   var gasType = 'comum';
-  var mix = 0.30;   // fração de etanol alvo no tanque
+  var mix = 0.50;   // fração de etanol alvo no tanque
 
   var CUR = {
     BRL:{ sym:{pt:'R$', en:'R$'}, step:5, min:10, ph:{pt:['250','6,29','4,19'], en:['250','6.29','4.19']} },
