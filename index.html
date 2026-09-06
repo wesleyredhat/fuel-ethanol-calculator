@@ -45,7 +45,6 @@
     opacity:.45;filter:grayscale(.6);transition:opacity .15s,background .15s;
   }
   .pill button[aria-pressed="true"]{opacity:1;filter:none;background:#1A2330;box-shadow:inset 0 0 0 1px rgba(14,165,255,.5);}
-  .pill.money button{font-size:12px;font-weight:800;color:var(--txt);padding:7px 8px;min-width:32px;}
 
   /* painel */
   .panel{
@@ -169,10 +168,6 @@
         <button type="button" data-lang="pt" aria-pressed="true" aria-label="Português">🇧🇷</button>
         <button type="button" data-lang="en" aria-pressed="false" aria-label="English">🇺🇸</button>
       </div>
-      <div class="pill money" id="money" role="group" aria-label="Moeda / Currency">
-        <button type="button" data-cur="BRL" aria-pressed="true">R$</button>
-        <button type="button" data-cur="USD" aria-pressed="false">$</button>
-      </div>
     </div>
   </div>
 
@@ -251,10 +246,7 @@
   var gasType = 'comum';
   var mix = 0.50;   // fração de etanol alvo no tanque
 
-  var CUR = {
-    BRL:{ sym:{pt:'R$', en:'R$'}, step:5, min:10, ph:{pt:['250','6,29','4,19'], en:['250','6.29','4.19']} },
-    USD:{ sym:{pt:'US$', en:'$'},  step:1, min:2,  ph:{pt:['60','0,95','0,80'],  en:['60','0.95','0.80']} }
-  };
+  var CUR = { BRL:{ sym:{pt:'R$', en:'R$'}, step:5, min:10, ph:{pt:['250','6,29','4,19'], en:['250','6.29','4.19']} } };
   var cur = 'BRL';
   function sym(){ return CUR[cur].sym[lang]; }
   function money(v, dec){ return sym() + ' ' + (dec ? f2 : f0).format(v); }
@@ -318,9 +310,6 @@
     var ph = CUR[cur].ph[lang];
     Array.prototype.forEach.call(document.querySelectorAll('[data-sym]'), function(el){ el.textContent = sym(); });
     $('total').placeholder = ph[0]; $('pg').placeholder = ph[1]; $('pe').placeholder = ph[2];
-    Array.prototype.forEach.call($('money').querySelectorAll('button'), function(b){
-      b.setAttribute('aria-pressed', b.getAttribute('data-cur') === cur ? 'true' : 'false');
-    });
   }
 
   function parseNum(s){
@@ -360,7 +349,6 @@
   mixr.addEventListener('input', setMix);
   toggleGroup($('gas'), 'data-gas', function(v){ gasType = v; run(true); });
   toggleGroup($('lang'), 'data-lang', function(v){ applyLang(v); });
-  toggleGroup($('money'), 'data-cur', function(v){ cur = v; applyCur(); run(true); });
 
   function fail(msg){ err.textContent = msg; err.className = 'err on'; out.hidden = true; }
 
