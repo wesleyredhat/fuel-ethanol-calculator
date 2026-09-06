@@ -397,6 +397,7 @@
     if(!(pg > 0) || !(pe > 0)) return;
     if(isNaN(rg)) rg = 0; if(isNaN(re)) re = 0;
     var gpct = GAS[gasType].pct;
+    $('total').value = f0.format(rg + re);   // o total acompanha a soma dos cartões
     render(rg, re, pg, pe, gpct/100, gpct, true);
   }
 
