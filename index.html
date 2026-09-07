@@ -61,7 +61,7 @@
   }
 
   /* cabeçalhos de seção */
-  .sec{display:flex;align-items:center;gap:7px;margin-bottom:6px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);}
+  .sec{display:flex;align-items:center;gap:7px;margin-bottom:5px;font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--dim);}
   .sec-n{width:16px;height:16px;border-radius:50%;background:var(--blue);color:#02121C;font-size:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
   .sec .hint{margin-left:auto;text-transform:none;letter-spacing:0;font-weight:500;font-size:11px;color:#5D6674;text-align:right;}
   .res{border-color:rgba(14,165,255,.28);background:linear-gradient(180deg,#0F1620,#0C1016);}
@@ -85,7 +85,7 @@
   input[type=range]::-moz-range-track{height:6px;border-radius:3px;background:#242C36;}
   input[type=range]::-moz-range-progress{height:6px;border-radius:3px;background:var(--blue);}
   input[type=range]::-moz-range-thumb{width:20px;height:20px;border-radius:50%;background:#fff;border:3px solid var(--blue);}
-  .ticks{position:relative;height:16px;margin-top:2px;}
+  .ticks{position:relative;height:14px;margin-top:1px;}
   .ticks button{
     position:absolute;top:0;transform:translateX(-50%);background:none;border:0;padding:0 3px;
     font:inherit;font-size:10.5px;font-weight:600;color:var(--dim);cursor:pointer;line-height:16px;letter-spacing:-.01em;
@@ -101,7 +101,7 @@
   .chips button{
     display:flex;align-items:center;justify-content:center;gap:6px;
     background:#0A0D11;border:1px solid var(--line);border-radius:9px;
-    color:var(--txt);font:inherit;padding:8px 6px;cursor:pointer;transition:background .15s,border-color .15s;
+    color:var(--txt);font:inherit;padding:7px 6px;cursor:pointer;transition:background .15s,border-color .15s;
   }
   .chips button .oct{font-weight:800;font-size:15px;}
   .chips button .nm{font-size:12px;color:var(--dim);font-weight:600;}
@@ -136,10 +136,13 @@
   .pumps{display:grid;grid-template-columns:1fr 1fr;gap:6px;}
   .pump{
     background:#0A0D11;
-    border:1px solid var(--line);border-left:3px solid var(--c);border-radius:12px;padding:6px 12px;
+    border:1px solid var(--line);border-left:3px solid var(--c);border-radius:12px;padding:5px 12px;
     display:flex;flex-direction:column;
   }
   .pump.g{--c:var(--gas);} .pump.e{--c:var(--eth);}
+  .pump.t{--c:var(--blue);margin-top:5px;background:linear-gradient(90deg,rgba(14,165,255,.10),rgba(14,165,255,0) 60%),#0A0D11;border-color:rgba(14,165,255,.35);}
+  .pump.t .val{border-bottom-color:rgba(14,165,255,.45);}
+  .pump.t .val input{color:var(--blue);}
   .pump .name{font-size:12px;color:var(--c);font-weight:700;}
   .pump .val{font-size:24px;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums;line-height:1.1;margin-top:2px;}
   .pump .val{display:flex;align-items:baseline;gap:2px;border-bottom:1px dashed #2E3844;margin-bottom:-1px;}
@@ -149,7 +152,7 @@
   .pump .lit{font-size:13px;color:var(--dim);font-variant-numeric:tabular-nums;}
 
   .blend{
-    display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:6px;padding:5px 12px;border-radius:10px;
+    display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:6px;padding:4px 12px;border-radius:10px;
     background:linear-gradient(90deg, rgba(61,220,132,.10), rgba(61,220,132,0));border:1px solid rgba(61,220,132,.35);
   }
   .blend.off{background:linear-gradient(90deg, rgba(255,176,32,.10), rgba(255,176,32,0));border-color:rgba(255,176,32,.4);}
@@ -159,7 +162,7 @@
   .blend .note{font-size:11.5px;color:var(--dim);text-align:right;max-width:58%;line-height:1.25;}
 
   .stats{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px;}
-  .stat{background:#0A0D11;border:1px solid var(--line);border-radius:10px;padding:6px 10px;min-width:0;}
+  .stat{background:#0A0D11;border:1px solid var(--line);border-radius:10px;padding:4px 10px;min-width:0;}
   .stat .k{font-size:11.5px;color:var(--dim);}
   .stat .v{font-size:15px;font-weight:700;font-variant-numeric:tabular-nums;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 
@@ -205,10 +208,9 @@
       </div>
     </div>
 
-    <div class="field">
-      <div class="box"><label class="lbl" for="total" data-t="total">Total</label><span class="cur" data-sym>R$</span>
-        <input id="total" type="text" inputmode="decimal" autocomplete="off" enterkeyhint="done" value="100">
-      </div>
+    <div class="pump t">
+      <label class="name" for="total" data-t="total">Total a gastar</label>
+      <label class="val"><small data-sym>R$</small><input id="total" type="text" inputmode="decimal" autocomplete="off" enterkeyhint="done" value="100"></label>
     </div>
 
     <div class="pair">
@@ -264,7 +266,7 @@
   var $ = function(id){ return document.getElementById(id); };
 
   // Gasolina da bomba: % de etanol anidro. Comum = E32 (desde ago/2026); Podium/premium = 25%.
-  var GAS = { comum:{pct:32}, podium:{pct:25} };
+  var GAS = { comum:{pct:32, price:'6,19'}, podium:{pct:25, price:'8,20'} };
   var gasType = 'comum';
   var mix = 0.50;   // fração de etanol alvo no tanque
 
@@ -373,7 +375,13 @@
     if(t) run(true);
   }
   mixr.addEventListener('input', setMix);
-  toggleGroup($('gas'), 'data-gas', function(v){ gasType = v; run(true); });
+  toggleGroup($('gas'), 'data-gas', function(v){
+    // troca o preço padrão só se o campo ainda estiver com o padrão do tipo anterior (não sobrescreve preço digitado)
+    var cur = parseNum($('pg').value), prev = parseNum(GAS[gasType].price);
+    gasType = v;
+    if(isNaN(cur) || cur === prev) $('pg').value = GAS[v].price;
+    run(true);
+  });
   toggleGroup($('lang'), 'data-lang', function(v){ applyLang(v); });
 
   function fail(msg){ err.textContent = msg; err.className = 'err on'; out.hidden = true; }
