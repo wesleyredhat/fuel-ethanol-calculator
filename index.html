@@ -140,9 +140,15 @@
     display:flex;flex-direction:column;
   }
   .pump.g{--c:var(--gas);} .pump.e{--c:var(--eth);}
-  .pump.t{--c:var(--blue);margin-top:5px;background:linear-gradient(90deg,rgba(14,165,255,.10),rgba(14,165,255,0) 60%),#0A0D11;border-color:rgba(14,165,255,.35);}
+  .pump.t{--c:var(--blue);margin-top:4px;background:linear-gradient(90deg,rgba(14,165,255,.10),rgba(14,165,255,0) 60%),#0A0D11;border-color:rgba(14,165,255,.35);}
   .pump.t .val{border-bottom-color:rgba(14,165,255,.45);}
   .pump.t .val input{color:var(--blue);}
+  .trow{display:flex;justify-content:space-between;align-items:center;}
+  .unit{display:flex;gap:2px;background:#0A0D11;border:1px solid var(--line);border-radius:999px;padding:2px;}
+  .unit button{background:none;border:0;border-radius:999px;color:var(--dim);font:inherit;font-size:11px;font-weight:700;padding:2px 9px;cursor:pointer;line-height:1.2;}
+  .unit button[aria-pressed="true"]{background:#1A2330;color:var(--txt);box-shadow:inset 0 0 0 1px rgba(14,165,255,.5);}
+  .pump .val .post{margin-left:3px;}
+  .pump .val .post:empty,.pump .val .pre:empty{display:none;}
   .pump .name{font-size:12px;color:var(--c);font-weight:700;}
   .pump .val{font-size:24px;font-weight:800;letter-spacing:-.03em;font-variant-numeric:tabular-nums;line-height:1.1;margin-top:2px;}
   .pump .val{display:flex;align-items:baseline;gap:2px;border-bottom:1px dashed #2E3844;margin-bottom:-1px;}
@@ -163,8 +169,8 @@
 
   .stats{display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-top:6px;}
   .stat{background:#0A0D11;border:1px solid var(--line);border-radius:10px;padding:4px 10px;min-width:0;}
-  .stat .k{font-size:11.5px;color:var(--dim);}
-  .stat .v{font-size:15px;font-weight:700;font-variant-numeric:tabular-nums;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+  .stat .k{font-size:11px;color:var(--dim);line-height:1.2;}
+  .stat .v{font-size:14.5px;font-weight:700;line-height:1.25;font-variant-numeric:tabular-nums;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
 
   @media (prefers-reduced-motion:reduce){*{transition:none!important;}}
   @media (max-height:700px){
@@ -194,10 +200,10 @@
     <div class="target">
       <div class="thead">
         <span class="lab" data-t="target">Mistura alvo</span>
-        <span class="tval"><b id="tval">E50</b><span id="tsub">50% etanol</span></span>
+        <span class="tval"><b id="tval">E40</b><span id="tsub">40% etanol</span></span>
       </div>
-      <input type="range" id="mixr" min="30" max="85" step="1" value="50" aria-label="E%" style="--p:36.3636%">
-      <div class="ticks" id="ticks"><button type="button" data-v="30" style="left:calc(13px + (100% - 26px) * 0.0000)">E30</button><button type="button" data-v="40" style="left:calc(13px + (100% - 26px) * 0.1818)">E40</button><button type="button" data-v="50" class="on" style="left:calc(13px + (100% - 26px) * 0.3636)">E50</button><button type="button" data-v="60" style="left:calc(13px + (100% - 26px) * 0.5455)">E60</button><button type="button" data-v="70" style="left:calc(13px + (100% - 26px) * 0.7273)">E70</button><button type="button" data-v="85" style="left:calc(13px + (100% - 26px) * 1.0000)">E85</button></div>
+      <input type="range" id="mixr" min="30" max="85" step="1" value="40" aria-label="E%" style="--p:18.1818%">
+      <div class="ticks" id="ticks"><button type="button" data-v="30" style="left:calc(13px + (100% - 26px) * 0.0000)">E30</button><button type="button" data-v="40" class="on" style="left:calc(13px + (100% - 26px) * 0.1818)">E40</button><button type="button" data-v="50" style="left:calc(13px + (100% - 26px) * 0.3636)">E50</button><button type="button" data-v="60" style="left:calc(13px + (100% - 26px) * 0.5455)">E60</button><button type="button" data-v="70" style="left:calc(13px + (100% - 26px) * 0.7273)">E70</button><button type="button" data-v="85" style="left:calc(13px + (100% - 26px) * 1.0000)">E85</button></div>
     </div>
 
     <div class="gasrow">
@@ -209,8 +215,14 @@
     </div>
 
     <div class="pump t">
-      <label class="name" for="total" data-t="total">Total a gastar</label>
-      <label class="val"><small data-sym>R$</small><input id="total" type="text" inputmode="decimal" autocomplete="off" enterkeyhint="done" value="100"></label>
+      <div class="trow">
+        <label class="name" for="total" data-t="total">Total a gastar</label>
+        <div class="unit" id="unit" role="group">
+          <button type="button" data-unit="brl" aria-pressed="true">R$</button>
+          <button type="button" data-unit="l" aria-pressed="false" data-t="liters">Litros</button>
+        </div>
+      </div>
+      <label class="val"><small class="pre" data-sym>R$</small><input id="total" type="text" inputmode="decimal" autocomplete="off" enterkeyhint="done" value="100"><small class="post"></small></label>
     </div>
 
     <div class="pair">
@@ -233,21 +245,21 @@
     <div class="sec"><span class="sec-n">2</span><span data-t="sec2">Na bomba</span><span class="hint" data-t="hint2">toque nos valores para ajustar</span></div>
     <div class="pumps">
       <div class="pump g"><div class="name" data-t="gas">Gasolina</div>
-        <label class="val"><small data-sym>R$</small><input id="vg" type="text" inputmode="decimal" autocomplete="off" enterkeyhint="done" value="80"></label>
-        <div class="lit" id="lg">12,92 L</div></div>
+        <label class="val"><small class="pre" data-sym>R$</small><input id="vg" type="text" inputmode="decimal" autocomplete="off" enterkeyhint="done" value="90"><small class="post"></small></label>
+        <div class="lit" id="lg">14,54 L</div></div>
       <div class="pump e"><div class="name" data-t="eth">Etanol</div>
-        <label class="val"><small data-sym>R$</small><input id="ve" type="text" inputmode="decimal" autocomplete="off" enterkeyhint="done" value="20"></label>
-        <div class="lit" id="le">5,13 L</div></div>
+        <label class="val"><small class="pre" data-sym>R$</small><input id="ve" type="text" inputmode="decimal" autocomplete="off" enterkeyhint="done" value="10"><small class="post"></small></label>
+        <div class="lit" id="le">2,56 L</div></div>
     </div>
     <div class="blend" id="blend">
-      <div><div class="lab" data-t="blend">Mistura resultante</div><div class="num" id="bnum">E51,3</div></div>
-      <div class="note" id="bnote">Dentro do alvo E50</div>
+      <div><div class="lab" data-t="blend">Mistura resultante</div><div class="num" id="bnum">E42,2</div></div>
+      <div class="note" id="bnote">Dentro do alvo E40</div>
     </div>
     <div class="stats">
-      <div class="stat"><div class="k" data-t="split">Proporção gas / etanol</div><div class="v" id="rprop">71,6% / 28,4%</div></div>
+      <div class="stat"><div class="k" data-t="split">Proporção gas / etanol</div><div class="v" id="rprop">85,0% / 15,0%</div></div>
       <div class="stat"><div class="k" data-t="spent">Total abastecido</div><div class="v" id="rtotal">R$ 100</div></div>
-      <div class="stat"><div class="k" data-t="vol">Volume total</div><div class="v" id="rvol">18,05 L</div></div>
-      <div class="stat"><div class="k" data-t="avg">Custo médio</div><div class="v" id="rmed">R$ 5,54/L</div></div>
+      <div class="stat"><div class="k" data-t="vol">Volume total</div><div class="v" id="rvol">17,10 L</div></div>
+      <div class="stat"><div class="k" data-t="avg">Custo médio</div><div class="v" id="rmed">R$ 5,85/L</div></div>
     </div>
   </section>
 
@@ -268,7 +280,8 @@
   // Gasolina da bomba: % de etanol anidro. Comum = E32 (desde ago/2026); Podium/premium = 25%.
   var GAS = { comum:{pct:32, price:'6,19'}, podium:{pct:25, price:'8,20'} };
   var gasType = 'comum';
-  var mix = 0.50;   // fração de etanol alvo no tanque
+  var mix = 0.40;   // fração de etanol alvo no tanque
+  var unit = 'brl'; // 'brl' = calcular por valor; 'l' = calcular por litros
 
   var CUR = { BRL:{ sym:{pt:'R$', en:'R$'}, step:5, min:10, ph:{pt:['250','6,29','4,19'], en:['250','6.29','4.19']} } };
   var cur = 'BRL';
@@ -279,6 +292,7 @@
     pt:{
       title:'Mistura de Etanol', target:'Mistura alvo', ofEth:'% etanol',
       sec1:'Planejamento', hint1:'alvo, gasolina e preços', sec2:'Na bomba', hint2:'toque nos valores para ajustar',
+      liters:'Litros', totalL:'Volume a abastecer', errTotalL:'Informe quantos litros quer abastecer.', errMinL:'Use pelo menos {m} litros.',
       footNote:'Gasolina comum E32 · Podium E25 · valores em múltiplos de R$ 5',
       gasType:'Gasolina', comum:'Comum', podium:'Podium',
       total:'Total a gastar', gas:'Gasolina', eth:'Etanol',
@@ -297,6 +311,7 @@
     en:{
       title:'Ethanol Blend', target:'Target blend', ofEth:'% ethanol',
       sec1:'Setup', hint1:'target, gasoline and prices', sec2:'At the pump', hint2:'tap the amounts to adjust',
+      liters:'Liters', totalL:'Volume to fill', errTotalL:'Enter how many liters to fill.', errMinL:'Use at least {m} liters.',
       footNote:'Regular gasoline E32 · Podium E25 · amounts rounded to R$ 5',
       gasType:'Gasoline', comum:'Regular', podium:'Premium',
       total:'Total to spend', gas:'Gasoline', eth:'Ethanol',
@@ -315,7 +330,7 @@
   };
 
   var lang = (navigator.language || 'pt').toLowerCase().indexOf('pt') === 0 ? 'pt' : 'en';
-  var t, f0, f2, p1;
+  var t, f0, f2, p1, l1;
   var out = $('out'), err = $('err'), mixr = $('mixr');
 
   function fmt(s, o){ return s.replace(/\{(\w+)\}/g, function(_,k){ return o[k]; }); }
@@ -326,11 +341,13 @@
     f0 = new Intl.NumberFormat(t.locale,{minimumFractionDigits:0,maximumFractionDigits:0});
     f2 = new Intl.NumberFormat(t.locale,{minimumFractionDigits:2,maximumFractionDigits:2});
     p1 = new Intl.NumberFormat(t.locale,{minimumFractionDigits:1,maximumFractionDigits:1});
+    l1 = new Intl.NumberFormat(t.locale,{minimumFractionDigits:0,maximumFractionDigits:1});
     Array.prototype.forEach.call(document.querySelectorAll('[data-t]'), function(el){ el.textContent = t[el.getAttribute('data-t')]; });
     Array.prototype.forEach.call($('lang').querySelectorAll('button'), function(b){
       b.setAttribute('aria-pressed', b.getAttribute('data-lang') === l ? 'true' : 'false');
     });
     applyCur();
+    applyUnit();
     setMix();
   }
 
@@ -384,14 +401,40 @@
   });
   toggleGroup($('lang'), 'data-lang', function(v){ applyLang(v); });
 
+  function applyUnit(){
+    var isL = unit === 'l';
+    Array.prototype.forEach.call($('unit').querySelectorAll('button'), function(b){
+      b.setAttribute('aria-pressed', b.getAttribute('data-unit') === unit ? 'true' : 'false');
+    });
+    document.querySelector('label[for="total"]').textContent = isL ? t.totalL : t.total;
+    Array.prototype.forEach.call(document.querySelectorAll('.pump .val .pre'), function(el){ el.textContent = isL ? '' : sym(); });
+    Array.prototype.forEach.call(document.querySelectorAll('.pump .val .post'), function(el){ el.textContent = isL ? 'L' : ''; });
+    $('total').placeholder = isL ? '40' : CUR[cur].ph[lang][0];
+  }
+  toggleGroup($('unit'), 'data-unit', function(v){
+    if(v === unit) return;
+    // converte o total atual para a nova unidade usando o resultado em tela
+    var pg = parseNum($('pg').value), pe = parseNum($('pe').value);
+    var rg = curRg, re = curRe;
+    unit = v; applyUnit();
+    if(pg > 0 && pe > 0 && (rg + re) > 0){
+      $('total').value = unit === 'l' ? l1.format(rg/pg + re/pe) : f0.format(rg + re);
+    }
+    run(true);
+  });
+  var curRg = 0, curRe = 0;   // último resultado em R$ (para conversão entre unidades)
+  function roundHalf(v){ return Math.max(0, Math.round(v*2)/2); }
+
   function fail(msg){ err.textContent = msg; err.className = 'err on'; out.hidden = true; }
 
   function run(silent){
     var total = parseNum($('total').value), pg = parseNum($('pg').value), pe = parseNum($('pe').value);
-    if(!(total > 0)) return fail(t.errTotal);
+    var isL = unit === 'l';
+    if(!(total > 0)) return fail(isL ? t.errTotalL : t.errTotal);
     if(!(pg > 0))    return fail(t.errGas);
     if(!(pe > 0))    return fail(t.errEth);
-    if(total < CUR[cur].min) return fail(fmt(t.errMin, {m:money(CUR[cur].min)}));
+    if(!isL && total < CUR[cur].min) return fail(fmt(t.errMin, {m:money(CUR[cur].min)}));
+    if(isL && total < 2) return fail(fmt(t.errMinL, {m:2}));
     err.className = 'err';
 
     var gpct = GAS[gasType].pct, g = gpct/100;
@@ -399,32 +442,45 @@
     var x = (mix - g) / (1 - g), onlyGas = x <= 0;
     if(onlyGas) x = 0;
 
-    var volAlvo = total / (x*pe + (1-x)*pg);
-    var rg = roundStep((1-x)*volAlvo*pg), re = roundStep(x*volAlvo*pe);
-    $('vg').value = f0.format(rg);
-    $('ve').value = f0.format(re);
-    render(rg, re, pg, pe, g, gpct, silent);
+    var rg, re;
+    if(isL){
+      // por litros: arredonda cada bomba em 0,5 L; o valor em R$ sai exato
+      var lG = roundHalf((1-x)*total), lE = roundHalf(x*total);
+      rg = lG*pg; re = lE*pe;
+      $('vg').value = l1.format(lG);
+      $('ve').value = l1.format(lE);
+    }else{
+      var volAlvo = total / (x*pe + (1-x)*pg);
+      rg = roundStep((1-x)*volAlvo*pg); re = roundStep(x*volAlvo*pe);
+      $('vg').value = f0.format(rg);
+      $('ve').value = f0.format(re);
+    }
+    render(rg, re, pg, pe, g, gpct);
   }
 
   // Recalcula a partir dos valores digitados nos cartões (modo manual)
   function manual(){
     var pg = parseNum($('pg').value), pe = parseNum($('pe').value);
-    var rg = parseNum($('vg').value), re = parseNum($('ve').value);
+    var a = parseNum($('vg').value), b = parseNum($('ve').value);
     if(!(pg > 0) || !(pe > 0)) return;
-    if(isNaN(rg)) rg = 0; if(isNaN(re)) re = 0;
+    if(isNaN(a)) a = 0; if(isNaN(b)) b = 0;
+    var rg, re;
+    if(unit === 'l'){ rg = a*pg; re = b*pe; $('total').value = l1.format(a + b); }
+    else            { rg = a;    re = b;    $('total').value = f0.format(rg + re); }
     var gpct = GAS[gasType].pct;
-    $('total').value = f0.format(rg + re);   // o total acompanha a soma dos cartões
-    render(rg, re, pg, pe, gpct/100, gpct, true);
+    render(rg, re, pg, pe, gpct/100, gpct);
   }
 
-  function render(rg, re, pg, pe, g, gpct, silent){
+  function render(rg, re, pg, pe, g, gpct){
+    curRg = rg; curRe = re;
     var litG = rg/pg, litE = re/pe, volT = litG + litE, gasto = rg + re;
+    var isL = unit === 'l';
     var x = volT > 0 ? litE/volT : 0;
     var real = volT > 0 ? ((litE + litG*g)/volT)*100 : 0, tgt = Math.round(mix*100);
     var onlyGas = re === 0 && g*100 >= tgt;
 
-    $('lg').textContent = f2.format(litG) + ' L';
-    $('le').textContent = f2.format(litE) + ' L';
+    $('lg').textContent = isL ? money(rg, true) : f2.format(litG) + ' L';
+    $('le').textContent = isL ? money(re, true) : f2.format(litE) + ' L';
 
     $('bnum').textContent = 'E' + p1.format(real);
     var desvio = Math.abs(real - tgt), blend = $('blend');
@@ -440,7 +496,7 @@
     }
 
     $('rprop').textContent  = fmt(t.splitV, {g:p1.format((1-x)*100), e:p1.format(x*100)});
-    $('rtotal').textContent = money(gasto);
+    $('rtotal').textContent = money(gasto, isL);
     $('rvol').textContent   = f2.format(volT) + ' L';
     $('rmed').textContent   = money(volT > 0 ? gasto/volT : 0, true) + '/L';
 
