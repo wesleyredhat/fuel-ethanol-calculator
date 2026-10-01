@@ -228,12 +228,12 @@
     <div class="pair">
       <div class="field">
         <div class="box"><label class="lbl" for="pg" data-t="gas">Gasolina</label><span class="cur" data-sym>R$</span>
-          <input id="pg" type="text" inputmode="decimal" autocomplete="off" enterkeyhint="done" value="6,19"><span class="suf">/L</span>
+          <input id="pg" type="text" inputmode="decimal" autocomplete="off" enterkeyhint="done" value="6,99"><span class="suf">/L</span>
         </div>
       </div>
       <div class="field">
         <div class="box"><label class="lbl" for="pe" data-t="eth">Etanol</label><span class="cur" data-sym>R$</span>
-          <input id="pe" type="text" inputmode="decimal" autocomplete="off" enterkeyhint="done" value="3,90"><span class="suf">/L</span>
+          <input id="pe" type="text" inputmode="decimal" autocomplete="off" enterkeyhint="done" value="4,49"><span class="suf">/L</span>
         </div>
       </div>
     </div>
@@ -246,20 +246,20 @@
     <div class="pumps">
       <div class="pump g"><div class="name" data-t="gas">Gasolina</div>
         <label class="val"><small class="pre" data-sym>R$</small><input id="vg" type="text" inputmode="decimal" autocomplete="off" enterkeyhint="done" value="90"><small class="post"></small></label>
-        <div class="lit" id="lg">14,54 L</div></div>
+        <div class="lit" id="lg">12,88 L</div></div>
       <div class="pump e"><div class="name" data-t="eth">Etanol</div>
         <label class="val"><small class="pre" data-sym>R$</small><input id="ve" type="text" inputmode="decimal" autocomplete="off" enterkeyhint="done" value="10"><small class="post"></small></label>
-        <div class="lit" id="le">2,56 L</div></div>
+        <div class="lit" id="le">2,23 L</div></div>
     </div>
-    <div class="blend" id="blend">
-      <div><div class="lab" data-t="blend">Mistura resultante</div><div class="num" id="bnum">E42,2</div></div>
-      <div class="note" id="bnote">Dentro do alvo E40</div>
+    <div class="blend off" id="blend">
+      <div><div class="lab" data-t="blend">Mistura resultante</div><div class="num" id="bnum">E42,0</div></div>
+      <div class="note" id="bnote">2,0 pontos fora do alvo E40</div>
     </div>
     <div class="stats">
-      <div class="stat"><div class="k" data-t="split">Proporção gas / etanol</div><div class="v" id="rprop">85,0% / 15,0%</div></div>
+      <div class="stat"><div class="k" data-t="split">Proporção gas / etanol</div><div class="v" id="rprop">85,3% / 14,7%</div></div>
       <div class="stat"><div class="k" data-t="spent">Total abastecido</div><div class="v" id="rtotal">R$ 100</div></div>
-      <div class="stat"><div class="k" data-t="vol">Volume total</div><div class="v" id="rvol">17,10 L</div></div>
-      <div class="stat"><div class="k" data-t="avg">Custo médio</div><div class="v" id="rmed">R$ 5,85/L</div></div>
+      <div class="stat"><div class="k" data-t="vol">Volume total</div><div class="v" id="rvol">15,10 L</div></div>
+      <div class="stat"><div class="k" data-t="avg">Custo médio</div><div class="v" id="rmed">R$ 6,62/L</div></div>
     </div>
   </section>
 
@@ -278,12 +278,12 @@
   var $ = function(id){ return document.getElementById(id); };
 
   // Gasolina da bomba: % de etanol anidro. Comum = E32 (desde ago/2026); Podium/premium = 25%.
-  var GAS = { comum:{pct:32, price:'6,19'}, podium:{pct:25, price:'8,20'} };
+  var GAS = { comum:{pct:32, price:'6,99'}, podium:{pct:25, price:'8,20'} };
   var gasType = 'comum';
   var mix = 0.40;   // fração de etanol alvo no tanque
   var unit = 'brl'; // 'brl' = calcular por valor; 'l' = calcular por litros
 
-  var CUR = { BRL:{ sym:{pt:'R$', en:'R$'}, step:5, min:10, ph:{pt:['250','6,29','4,19'], en:['250','6.29','4.19']} } };
+  var CUR = { BRL:{ sym:{pt:'R$', en:'R$'}, step:5, min:10, ph:{pt:['100','6,99','4,49'], en:['100','6.99','4.49']} } };
   var cur = 'BRL';
   function sym(){ return CUR[cur].sym[lang]; }
   function money(v, dec){ return sym() + ' ' + (dec ? f2 : f0).format(v); }
