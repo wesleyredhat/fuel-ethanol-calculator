@@ -407,14 +407,23 @@
     Array.prototype.forEach.call(document.querySelectorAll('.pump .val .post'), function(el){ el.textContent = isL ? 'L' : ''; });
     $('total').placeholder = isL ? '40' : CUR[cur].ph[lang][0];
   }
+  // último total informado em cada unidade; ao voltar para uma unidade, restaura o valor em vez de converter
+  var typedTotal = { brl: $('total').value, l: null };
   toggleGroup($('unit'), 'data-unit', function(v){
     if(v === unit) return;
-    // converte o total atual para a nova unidade usando o resultado em tela
     var pg = parseNum($('pg').value), pe = parseNum($('pe').value);
     var rg = curRg, re = curRe;
     unit = v; applyUnit();
-    if(pg > 0 && pe > 0 && (rg + re) > 0){
+    if(typedTotal[v] !== null){
+      $('total').value = typedTotal[v];
+    }else if(pg > 0 && pe > 0 && (rg + re) > 0){
+      // primeira vez nesta unidade: converte o resultado em tela
       $('total').value = unit === 'l' ? l1.format(rg/pg + re/pe) : f0.format(rg + re);
+      run(true);
+      // após o arredondamento, o total mostrado passa a ser a soma real dos cartões
+      $('total').value = unit === 'l' ? l1.format(curRg/pg + curRe/pe) : f0.format(curRg + curRe);
+      typedTotal[v] = $('total').value;
+      return;
     }
     run(true);
   });
@@ -468,6 +477,7 @@
     var rg, re;
     if(unit === 'l'){ rg = a*pg; re = b*pe; $('total').value = l1.format(a + b); }
     else            { rg = a;    re = b;    $('total').value = f0.format(rg + re); }
+    typedTotal[unit] = $('total').value; typedTotal[unit === 'l' ? 'brl' : 'l'] = null;
     var gpct = GAS[gasType].pct;
     render(rg, re, pg, pe, gpct/100, gpct);
   }
@@ -511,7 +521,10 @@
   });
   ['total','pg','pe'].forEach(function(id){
     var el = $(id);
-    el.addEventListener('input', function(){ run(true); });
+    el.addEventListener('input', function(){
+      if(id === 'total'){ typedTotal[unit] = el.value; typedTotal[unit === 'l' ? 'brl' : 'l'] = null; }
+      run(true);
+    });
     el.addEventListener('keydown', function(e){ if(e.key === 'Enter'){ e.preventDefault(); el.blur(); } });
   });
 
