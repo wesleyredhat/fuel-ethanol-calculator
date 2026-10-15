@@ -268,7 +268,7 @@
       <span class="foot-brand"><span class="slash">E</span> Fuel Ethanol Calculator <span class="ver">v1.0</span></span>
       <a href="https://github.com/wesleyredhat/fuel-ethanol-calculator" target="_blank" rel="noopener">GitHub</a>
     </div>
-    <p class="foot-note" data-t="footNote">Gasolina comum E30 · Podium E25 · valores em múltiplos de R$ 5</p>
+    <p class="foot-note" data-t="footNote">Gasolina comum E30 · Podium E25 · valores em múltiplos de R$ 10</p>
   </footer>
 
 </div>
@@ -283,7 +283,7 @@
   var mix = 0.40;   // fração de etanol alvo no tanque
   var unit = 'brl'; // 'brl' = calcular por valor; 'l' = calcular por litros
 
-  var CUR = { BRL:{ sym:{pt:'R$', en:'R$'}, step:5, min:10, ph:{pt:['100','6,99','4,49'], en:['100','6.99','4.49']} } };
+  var CUR = { BRL:{ sym:{pt:'R$', en:'R$'}, step:10, min:20, ph:{pt:['100','6,99','4,49'], en:['100','6.99','4.49']} } };
   var cur = 'BRL';
   function sym(){ return CUR[cur].sym[lang]; }
   function money(v, dec){ return sym() + ' ' + (dec ? f2 : f0).format(v); }
@@ -293,13 +293,13 @@
       title:'Mistura de Etanol', target:'Mistura alvo', ofEth:'% etanol',
       sec1:'Planejamento', hint1:'alvo, gasolina e preços', sec2:'Na bomba', hint2:'toque nos valores para ajustar',
       liters:'Litros', totalL:'Volume a abastecer', errTotalL:'Informe quantos litros quer abastecer.', errMinL:'Use pelo menos {m} litros.',
-      footNote:'Gasolina comum E30 · Podium E25 · valores em múltiplos de R$ 5',
+      footNote:'Gasolina comum E30 · Podium E25 · valores em múltiplos de R$ 10',
       gasType:'Gasolina', comum:'Comum', podium:'Podium',
       total:'Total a gastar', gas:'Gasolina', eth:'Etanol',
       blend:'Mistura resultante', split:'Proporção gas / etanol', spent:'Total abastecido',
       vol:'Volume total', avg:'Custo médio',
       inTarget:'Dentro do alvo E{t}',
-      off:'{d} pontos fora do alvo E{t}',
+      above:'{d} pontos acima do alvo E{t}', below:'{d} pontos abaixo do alvo E{t}',
       onlyGas:'A gasolina {n} já tem {g}% de etanol e atende o alvo E{t}. Não precisa de etanol.',
       splitV:'{g}% / {e}%',
       errTotal:'Informe quanto você quer gastar no total.',
@@ -312,13 +312,13 @@
       title:'Ethanol Blend', target:'Target blend', ofEth:'% ethanol',
       sec1:'Setup', hint1:'target, gasoline and prices', sec2:'At the pump', hint2:'tap the amounts to adjust',
       liters:'Liters', totalL:'Volume to fill', errTotalL:'Enter how many liters to fill.', errMinL:'Use at least {m} liters.',
-      footNote:'Regular gasoline E30 · Podium E25 · amounts rounded to R$ 5',
+      footNote:'Regular gasoline E30 · Podium E25 · amounts rounded to R$ 10',
       gasType:'Gasoline', comum:'Regular', podium:'Premium',
       total:'Total to spend', gas:'Gasoline', eth:'Ethanol',
       blend:'Resulting blend', split:'Gas / ethanol split', spent:'Total spent',
       vol:'Total volume', avg:'Average cost',
       inTarget:'On target E{t}',
-      off:'{d} points off the E{t} target',
+      above:'{d} points above the E{t} target', below:'{d} points below the E{t} target',
       onlyGas:'{n} gasoline already has {g}% ethanol, meeting the E{t} target. No ethanol needed.',
       splitV:'{g}% / {e}%',
       errTotal:'Enter the total amount you want to spend.',
@@ -492,12 +492,12 @@
     if(onlyGas){
       blend.className = 'blend off';
       $('bnote').textContent = fmt(t.onlyGas, {g:gpct, t:tgt, n:(lang === 'pt' ? t[gasType].toLowerCase() : t[gasType])});
-    }else if(desvio <= 2){
+    }else if(real >= tgt - 0.05 && real <= tgt + 5){
       blend.className = 'blend';
       $('bnote').textContent = fmt(t.inTarget, {t:tgt});
     }else{
       blend.className = 'blend off';
-      $('bnote').textContent = fmt(t.off, {d:p1.format(desvio), t:tgt});
+      $('bnote').textContent = fmt(real > tgt ? t.above : t.below, {d:p1.format(desvio), t:tgt});
     }
 
     $('rprop').textContent  = fmt(t.splitV, {g:p1.format((1-x)*100), e:p1.format(x*100)});
